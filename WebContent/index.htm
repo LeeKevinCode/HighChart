@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Elevator Demo</title>
+
+<script type="text/javascript"
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<style type="text/css">
+${demo.css}
+</style>
+<script type="text/javascript">
+$(function () {
+	$.get('Welcome', function(data){
+		 var json = $.parseJSON(data);
+		 Highcharts.setOptions({
+			    global: {
+			        timezoneOffset: -10 * 60
+			    }
+			});
+		 
+		 Highcharts.chart('container', {
+		        title: {
+		            text: 'Laser Distance',
+		            x: -20 //center
+		        },
+		        subtitle: {
+		            text: 'Source: Laser Detector',
+		            x: -20
+		        },
+		        xAxis: {
+		        	type: 'datetime',
+		            dateTimeLabelFormats: { // don't display the dummy year
+		                month: '%e. %b',
+		                year: '%b'
+		            }
+		        },
+		        yAxis: {
+		            title: {
+		                text: 'Distance (meter)'
+		            },
+		            plotLines: [{
+		                value: 0,
+		                width: 1,
+		                color: '#808080'
+		            }]
+		        },
+		        tooltip: {
+		            valueSuffix: 'meter'
+		        },
+		        legend: {
+		            layout: 'vertical',
+		            align: 'right',
+		            verticalAlign: 'middle',
+		            borderWidth: 0
+		        },
+		        series: [{
+		            name: 'Laser Distance',
+		            data: json[1]
+		        }]
+		    });
+	})
+})
+</script>
+</head>
+<body>
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+	<div id="container"
+		style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+</body>
+</html>
